@@ -73,7 +73,9 @@ SOURCES += main.cpp\
     screenoverlay/screenoverlayview.cpp \
     screenoverlay/screenoverlay.cpp \
     screenoverlay/screenoverlaysettings.cpp \
-    logger.cpp
+    logger.cpp \
+    screengrabber.cpp \
+    request.cpp
 
 HEADERS  += mainwindow.hpp \
     cropeditor/cropeditor.hpp \
@@ -125,7 +127,9 @@ HEADERS  += mainwindow.hpp \
     screenoverlay/screenoverlayview.hpp \
     screenoverlay/screenoverlay.hpp \
     screenoverlay/screenoverlaysettings.hpp \
-    logger.hpp
+    logger.hpp \
+    screengrabber.hpp \
+    request.hpp
 
 nopkg {
 #    win32 {
@@ -165,7 +169,7 @@ mac {
     RC_FILE = $$PWD/icon.rc
     SOURCES += $$PWD/platformspecifics/x11/x11backend.cpp
     HEADERS += $$PWD/platformspecifics/x11/x11backend.hpp
-    QT += x11extras
+    QT += x11extras dbus
     LIBS += -lxcb-cursor -lxcb-xfixes -lxcb
 
     target.path = bin/

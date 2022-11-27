@@ -1,4 +1,5 @@
 #include "utils.hpp"
+#include "screengrabber.hpp"
 
 #include <QApplication>
 #include <QClipboard>
@@ -25,6 +26,17 @@ QPixmap utils::extend(QPixmap img, int extraSize, QColor hl) {
 
 QPixmap utils::fullscreen(bool cursor) {
     QPixmap image;
+    auto e = QProcessEnvironment::systemEnvironment();
+    auto XDG_SESSION_TYPE = e.value(QStringLiteral("XDG_SESSION_TYPE"));
+    auto WAYLAND_DISPLAY = e.value(QStringLiteral("WAYLAND_DISPLAY"));
+    if (XDG_SESSION_TYPE == QLatin1String("wayland") ||
+        WAYLAND_DISPLAY.contains(QLatin1String("wayland"), Qt::CaseInsensitive)) {
+      ScreenGrabber grabber(nullptr);
+      bool ok;
+      grabber.freeDesktopPortal(ok, image);
+      return image;
+    }
+
     QPainter painter;
     QPoint smallestCoordinate = smallestScreenCoordinate();
 

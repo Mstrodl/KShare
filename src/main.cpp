@@ -63,7 +63,7 @@ void loadTranslation(QString locale) {
 }
 
 int main(int argc, char *argv[]) {
-    av_register_all();
+    //av_register_all();
     qInstallMessageHandler(handler);
     QApplication a(argc, argv);
     a.setQuitOnLastWindowClosed(false);

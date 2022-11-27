@@ -25,7 +25,8 @@ CropEditor::CropEditor(QPixmap image, QObject *parent) : QObject(parent) {
     view->move(p.x(), p.y());
     view->setWindowTitle(tr("KShare Crop Editor"));
     view->activateWindow();
-    scene->show();
+    view->showFullScreen();
+
     connect(scene, &CropScene::closedWithRect, this, &CropEditor::crop);
 }
 

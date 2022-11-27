@@ -39,7 +39,7 @@ public:
     bool end();
 
 private:
-    AVCodec *codec = NULL;
+    const AVCodec *codec = NULL;
 
     OutputStream *out = new OutputStream;
     AVFormatContext *fc = NULL;

@@ -1,6 +1,5 @@
 TEMPLATE = subdirs
 SUBDIRS += src
-
 DISTFILES += \
     README.md \
     LICENSE \
