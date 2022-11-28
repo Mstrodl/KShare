@@ -169,7 +169,7 @@ mac {
     RC_FILE = $$PWD/icon.rc
     SOURCES += $$PWD/platformspecifics/x11/x11backend.cpp
     HEADERS += $$PWD/platformspecifics/x11/x11backend.hpp
-    QT += x11extras dbus
+    QT += x11extras dbus KGlobalAccel
     LIBS += -lxcb-cursor -lxcb-xfixes -lxcb
 
     target.path = bin/
