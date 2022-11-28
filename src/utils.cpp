@@ -24,14 +24,15 @@ QPixmap utils::extend(QPixmap img, int extraSize, QColor hl) {
     return newImg;
 }
 
+auto environment = QProcessEnvironment::systemEnvironment();
+auto XDG_SESSION_TYPE = environment.value(QStringLiteral("XDG_SESSION_TYPE"));
+auto WAYLAND_DISPLAY = environment.value(QStringLiteral("WAYLAND_DISPLAY"));
+auto isWayland = XDG_SESSION_TYPE == QLatin1String("wayland") ||
+  WAYLAND_DISPLAY.contains(QLatin1String("wayland"), Qt::CaseInsensitive);
+ScreenGrabber grabber(nullptr);
 QPixmap utils::fullscreen(bool cursor) {
     QPixmap image;
-    auto e = QProcessEnvironment::systemEnvironment();
-    auto XDG_SESSION_TYPE = e.value(QStringLiteral("XDG_SESSION_TYPE"));
-    auto WAYLAND_DISPLAY = e.value(QStringLiteral("WAYLAND_DISPLAY"));
-    if (XDG_SESSION_TYPE == QLatin1String("wayland") ||
-        WAYLAND_DISPLAY.contains(QLatin1String("wayland"), Qt::CaseInsensitive)) {
-      ScreenGrabber grabber(nullptr);
+    if (isWayland) {
       bool ok;
       grabber.freeDesktopPortal(ok, image);
       return image;
