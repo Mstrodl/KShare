@@ -1,3 +1,16 @@
+# Mary's kshare patches
+
+* Building on modern ffmpeg
+* Wayland support for screenshotting
+* Wayland support for global hotkeys
+
+These are all pretty low-effort changes.
+
+This fork contains GPL-licensed components from
+[flameshot](https://github.com/flameshot-org/flameshot),
+mostly in and around the wayland screenshotting stuff.
+You should probably use it instead, but for some reason I'm really stuborn.
+
 # KShare
 A [ShareX](https://getsharex.com/) inspired cross platform utility written with Qt.
 
