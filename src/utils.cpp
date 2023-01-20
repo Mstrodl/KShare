@@ -51,12 +51,15 @@ QPixmap utils::fullscreen(bool cursor) {
 #endif
         int height = 0, width = 0;
         int ox = smallestCoordinate.x() * -1, oy = smallestCoordinate.y() * -1;
+        qreal ratio = 1;
         for (QScreen *screen : QApplication::screens()) {
             QRect geo = screen->geometry();
-            width = qMax(ox + geo.left() + geo.width(), width);
-            height = qMax(oy + geo.top() + geo.height(), height);
+            ratio = screen->devicePixelRatio();
+            width = qMax(ox + geo.left() + (int) (ratio*geo.width()), width);
+            height = qMax(oy + geo.top() + (int) (ratio*geo.height()), height);
         }
         image = QPixmap(width, height);
+        image.setDevicePixelRatio(ratio);
         image.fill(Qt::transparent);
         width = 0;
         painter.begin(&image);

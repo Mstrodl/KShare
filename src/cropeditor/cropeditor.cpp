@@ -18,8 +18,8 @@ CropEditor::CropEditor(QPixmap image, QObject *parent) : QObject(parent) {
     pixmapItem->setZValue(-1);
     scene->addItem(pixmapItem);
     scene->setSceneRect(image.rect());
-    view->resize(image.width(), image.height());
-    view->setMinimumSize(image.size());
+    view->resize(image.width()/image.devicePixelRatio(), image.height()/image.devicePixelRatio());
+    view->setMinimumSize(image.size()/image.devicePixelRatio());
     QPoint p = utils::smallestScreenCoordinate()
                + QPoint(settings::settings().value("cropx", 0).toInt(), settings::settings().value("cropy", 0).toInt());
     view->move(p.x(), p.y());
