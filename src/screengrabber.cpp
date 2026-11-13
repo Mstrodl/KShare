@@ -51,9 +51,10 @@ void ScreenGrabber::freeDesktopPortal(bool& ok, QPixmap& res)
             // > fractional scaling, or if window properties that affect surface
             // > resolution are set. Prefer using QWindow::devicePixelRatio().
             // From: https://doc.qt.io/qt-6/qscreen.html#devicePixelRatio-prop
-            // Wayland is stupid...
-            // QApplication::screens()[0]->devicePixelRatio()
-            res.setDevicePixelRatio(1.25f);
+            // Wayland is stupid... We can't just use QScreen::devicePixelRatio()
+            // because it'll give nearest integer...
+            res.setDevicePixelRatio((qreal) res.width() /
+              (qreal) QApplication::screens()[0]->geometry().size().width());
             QFile imgFile(uriString);
             imgFile.remove();
         }
