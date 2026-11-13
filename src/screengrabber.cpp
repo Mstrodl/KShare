@@ -45,7 +45,15 @@ void ScreenGrabber::freeDesktopPortal(bool& ok, QPixmap& res)
             QUrl uri = map.value("uri").toString();
             QString uriString = uri.toLocalFile();
             res = QPixmap(uriString);
-            res.setDevicePixelRatio(QApplication::screens()[0]->devicePixelRatio());
+
+            // > This function may return a value that differs from
+            // > QWindow::devicePixelRatio(), for instance on Wayland when using
+            // > fractional scaling, or if window properties that affect surface
+            // > resolution are set. Prefer using QWindow::devicePixelRatio().
+            // From: https://doc.qt.io/qt-6/qscreen.html#devicePixelRatio-prop
+            // Wayland is stupid...
+            // QApplication::screens()[0]->devicePixelRatio()
+            res.setDevicePixelRatio(1.25f);
             QFile imgFile(uriString);
             imgFile.remove();
         }
